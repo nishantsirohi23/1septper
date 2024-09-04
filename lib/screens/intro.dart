@@ -143,7 +143,7 @@ class _IntroMainState extends State<IntroMain> {
     return FirebaseFirestore.instance.collection('stores').get();
   }Future<QuerySnapshot> getItems() async {
     isLoading = false;
-    return FirebaseFirestore.instance.collection('lookingfor').get();
+    return FirebaseFirestore.instance.collection('lookingforstores').get();
   }
   Future<QuerySnapshot> getRestraunts() async {
     isLoading = false;
@@ -516,7 +516,7 @@ class _IntroMainState extends State<IntroMain> {
             SizedBox(height: 3,),
             Container(
               margin: EdgeInsets.only(left: 9),
-              height: screenHeight * 0.14,
+              height: screenHeight * 0.13,
               child: FutureBuilder<QuerySnapshot>(
                 future: _itemsData, // Assuming _usersStream() returns a Future<QuerySnapshot>
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -540,14 +540,14 @@ class _IntroMainState extends State<IntroMain> {
                     scrollDirection: Axis.horizontal,
                     children: firstHalf.map((DocumentSnapshot document) {
                       Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
+                      final String firstWord = data['name'].split(' ').first;
                       return GestureDetector(
                         onTap: (){
                           Navigator.push(
                             context,
                             PageRouteBuilder(
                               transitionDuration: Duration(milliseconds: 400),
-                              pageBuilder: (_, __, ___) => IntroSearch(searchText: data['name'],filter: "dish",),
+                              pageBuilder: (_, __, ___) => IntroSearch(searchText: data['name'],filter: "restraunts",),
                               transitionsBuilder: (_, animation, __, child) {
                                 return ScaleTransition(
                                   scale: Tween<double>(begin: 0.5, end: 1.0).animate(
@@ -574,19 +574,19 @@ class _IntroMainState extends State<IntroMain> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CircleAvatar(
-                                  radius: screenHeight*0.046,
+                                  radius: screenHeight*0.04,
                                   backgroundColor: Colors.transparent, // Set background color for the circle
                                   child: ClipOval(
                                     child: CachedNetworkImage(
                                       imageUrl: data['image'], // URL of the image
-                                      width: screenHeight*0.1, // Double the radius to fit the CircleAvatar
-                                      height: screenHeight*0.1, // Double the radius to fit the CircleAvatar
+                                      width: screenHeight*0.07, // Double the radius to fit the CircleAvatar
+                                      height: screenHeight*0.07, // Double the radius to fit the CircleAvatar
                                       placeholder: (context, url) => Shimmer.fromColors(
                                         baseColor: Colors.grey[300]!,
                                         highlightColor: Colors.grey[100]!,
                                         child: Container(
-                                          width: screenHeight*0.08, // Double the radius to fit the CircleAvatar
-                                          height: screenHeight*0.08, // Double the radius to fit the CircleAvatar
+                                          width: screenHeight*0.06, // Double the radius to fit the CircleAvatar
+                                          height: screenHeight*0.06, // Double the radius to fit the CircleAvatar
                                           color: Colors.white,
                                         ),
                                       ),
@@ -594,7 +594,10 @@ class _IntroMainState extends State<IntroMain> {
                                     ),
                                   ),
                                 ),
-                                Text(data['name'])
+                                Text(
+                                  firstWord, // Replaces spaces with newlines
+                                  textAlign: TextAlign.center, // Centers the text
+                                ),
                               ],
                             ),
                           ),
@@ -605,10 +608,9 @@ class _IntroMainState extends State<IntroMain> {
                 },
               ),
             ),
-            SizedBox(height: 5,),
             Container(
               margin: EdgeInsets.only(left: 9),
-              height: screenHeight * 0.145,
+              height: screenHeight * 0.13,
               child: FutureBuilder<QuerySnapshot>(
                 future: _itemsData, // Assuming _usersStream() returns a Future<QuerySnapshot>
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -628,18 +630,19 @@ class _IntroMainState extends State<IntroMain> {
                   final halfIndex = (filteredDocuments.length / 2).floor();
                   final lastHalf = filteredDocuments.sublist(halfIndex);
 
+
                   return ListView(
                     scrollDirection: Axis.horizontal,
                     children: lastHalf.map((DocumentSnapshot document) {
                       Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
+                      final String firstWord = data['name'].split(' ').first;
                       return GestureDetector(
                         onTap: (){
                           Navigator.push(
                             context,
                             PageRouteBuilder(
                               transitionDuration: Duration(milliseconds: 400),
-                              pageBuilder: (_, __, ___) => IntroSearch(searchText: data['name'],filter: "dish",),
+                              pageBuilder: (_, __, ___) => IntroSearch(searchText: data['name'],filter: "restraunts",),
                               transitionsBuilder: (_, animation, __, child) {
                                 return ScaleTransition(
                                   scale: Tween<double>(begin: 0.5, end: 1.0).animate(
@@ -666,19 +669,19 @@ class _IntroMainState extends State<IntroMain> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CircleAvatar(
-                                  radius: screenHeight*0.046,
+                                  radius: screenHeight*0.04,
                                   backgroundColor: Colors.transparent, // Set background color for the circle
                                   child: ClipOval(
                                     child: CachedNetworkImage(
                                       imageUrl: data['image'], // URL of the image
-                                      width: screenHeight*0.1, // Double the radius to fit the CircleAvatar
-                                      height: screenHeight*0.1, // Double the radius to fit the CircleAvatar
+                                      width: screenHeight*0.07, // Double the radius to fit the CircleAvatar
+                                      height: screenHeight*0.07, // Double the radius to fit the CircleAvatar
                                       placeholder: (context, url) => Shimmer.fromColors(
                                         baseColor: Colors.grey[300]!,
                                         highlightColor: Colors.grey[100]!,
                                         child: Container(
-                                          width: screenHeight*0.08, // Double the radius to fit the CircleAvatar
-                                          height: screenHeight*0.08, // Double the radius to fit the CircleAvatar
+                                          width: screenHeight*0.06, // Double the radius to fit the CircleAvatar
+                                          height: screenHeight*0.06, // Double the radius to fit the CircleAvatar
                                           color: Colors.white,
                                         ),
                                       ),
@@ -686,7 +689,10 @@ class _IntroMainState extends State<IntroMain> {
                                     ),
                                   ),
                                 ),
-                                Text(data['name'])
+                                Text(
+                                  firstWord, // Replaces spaces with newlines
+                                  textAlign: TextAlign.center, // Centers the text
+                                ),
                               ],
                             ),
                           ),

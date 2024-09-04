@@ -13,6 +13,10 @@ import 'package:perwork/screens/costumer/food/dlb.dart';
 import 'package:perwork/screens/costumer/food/introsearch.dart';
 import 'package:perwork/screens/costumer/restrauntscreen.dart';
 import 'package:perwork/screens/profilescreen.dart';
+import 'package:perwork/screens/services/petcare.dart';
+import 'package:perwork/screens/services/repairs.dart';
+import 'package:perwork/screens/services/smartphone.dart';
+import 'package:perwork/widgets/phone.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -21,6 +25,8 @@ import '../../utils/LocationService.dart';
 import '../../widgets/dashedline.dart';
 import '../../widgets/work/searchbar.dart';
 import '../costumer/addwork.dart';
+import 'cleaningwidget.dart';
+import 'interiorDesigners.dart';
 
 
 
@@ -351,7 +357,22 @@ class _IntroMainState extends State<Services> {
                 )
             ),
             SizedBox(height: 15,),
+            InteriorDesignerWidget(),
+            Container(
+              height: 500,
+              child: ImageSelectorWidget(collectionName: 'smartphone_services',),
+            ),
+            SizedBox(height: 10,),
 
+            Petcare(),
+            SizedBox(height: 10,),
+
+            SizedBox(height: 10,),
+
+            CleaningWidget(),
+            SizedBox(height: 10,),
+            RepairsWidget(),
+            SizedBox(height: 10,),
 
             Container(
               margin: EdgeInsets.only(left: 12),

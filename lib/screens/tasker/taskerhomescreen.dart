@@ -157,6 +157,4 @@ class _BottomNavigationBarExampleState
   }
 }
 
-void main() {
-  runApp(TaskerHomeScreen());
-}
+
