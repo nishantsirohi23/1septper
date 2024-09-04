@@ -126,7 +126,8 @@ class _AddWorkState extends State<AddWork> {
   String mpercentage = "";
 
   Future<void> fetchChatCompletion(String des) async {
-
+    final String url = 'https://api.openai.com/v1/chat/completions';
+    final String apiKey = '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';
 
     final Map<String, dynamic> requestBody = {
       "model": "gpt-3.5-turbo-0125",
