@@ -126,7 +126,7 @@ class _AddWorkState extends State<AddWork> {
   String mpercentage = "";
 
   Future<void> fetchChatCompletion(String des) async {
-    
+
 
     final Map<String, dynamic> requestBody = {
       "model": "gpt-3.5-turbo-0125",
